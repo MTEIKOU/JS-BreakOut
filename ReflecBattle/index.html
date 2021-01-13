@@ -76,8 +76,8 @@
     game.physics.arcade.collide(balls, paddles, ballHitPaddle);
     if(game.input.pointer1.y>game.world.height*0.5){paddle1.x = game.input.pointer1.x}else if(game.input.pointer2.y>game.world.height*0.5){paddle1.x = game.input.pointer2.x}else{paddle1.x=game.world.width*0.5;}
     if(game.input.pointer1.y<game.world.height*0.5){paddle2.x = game.input.pointer1.x}else if(game.input.pointer2.y<game.world.height*0.5){paddle2.x = game.input.pointer2.x}else{paddle2.x=game.world.width*0.5;}
-    game.debug.pointer(game.input.pointer1);
-    game.debug.pointer(game.input.pointer2);
+    //game.debug.pointer(game.input.pointer1);
+    //game.debug.pointer(game.input.pointer2);
     //paddle1.x = game.input.x;
   }
 
