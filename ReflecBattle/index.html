@@ -66,7 +66,7 @@
     paddle2.body.immovable = true;
     paddles.add(paddle2);
 
-    textStyle = { font: '18px Arial', fill: '#0095DD' };
+    textStyle = { font: '22px Arial', fill: '#0095DD' };
     scoreText = game.add.text(game.world.width*0.5, game.world.height*0.5, '1P:0 2P:0', textStyle);
     scoreText.anchor.set(0.5,0.5);
     timeText = game.add.text(game.world.width*0.5, game.world.height*0.5-20, 'Time:'+time, textStyle);
@@ -75,9 +75,13 @@
   function update() {
 
     game.physics.arcade.collide(balls, paddles, ballHitPaddle);
-    if(game.input.y>game.world.height*0.5){paddle1.x = game.input.x}
-    if(game.input.y<game.world.height*0.5){paddle2.x = game.input.x}
-  }
+    if(game.input.pointer1.y>game.world.height*0.5){paddle1.x = game.input.pointer1.x}else if(game.input.pointer1.y<game.world.height*0.5){paddle2.x = game.input.pointer1.x}
+    if(game.input.pointer2.y>game.world.height*0.5){paddle1.x = game.input.pointer1.x}else if(game.input.pointer2.y<game.world.height*0.5){paddle2.x = game.input.pointer2.x}
+    //game.debug.pointer(game.input.pointer1);
+    //game.debug.pointer(game.input.pointer2);
+    //paddle1.x = game.input.x;
+    }
+
 
   setInterval(function () {
     if(time>0){time--};
