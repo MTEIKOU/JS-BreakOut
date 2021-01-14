@@ -125,9 +125,8 @@
 
   function ballHitPaddle(ball, paddle) {
     ball.body.velocity.x = -1*5*(paddle.x-ball.x);
-
-    refball = game.add.sprite(ball.x,ball.y,'ball2');
-
+    if(paddle==paddle1){ball.loadTexture('ball2');}
+    if(paddle==paddle2){ball.loadTexture('ball3');}
 
   }
 
