@@ -81,16 +81,17 @@
   }
   function update() {
     game.physics.arcade.collide(balls, paddles, ballHitPaddle);
-    /*
+
     var sinx = Math.sin(deg*(Math.PI/180));
     paddle2.x=game.world.width*0.5 + sinx*(game.world.width*0.5-paddle2.width*0.6);
-    deg+=8;
+    deg+=4;
     console.log(deg);
-    */
+    /*
     if(x%60<30){paddle2.x=paddle2.width*0.5+game.world.width*0.5/30*(x%60);}
     if(x%60>=30){paddle2.x=game.world.width-paddle2.width*0.5-game.world.width/30*(x%60-30);}
     x++;
     console.log(x%60);
+    */
     /*
     if(game.input.pointer1.x==-1 && game.input.pointer1.y ==-1){
       game.input.pointer1.x=game.world.width*0.5;
