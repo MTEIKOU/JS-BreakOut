@@ -31,7 +31,8 @@
   var time=45;
 
   function preload() {
-    handleRemoteImagesOnJSFiddle();
+    game.load.baseURL = 'https://raw.githubusercontent.com/MTEIKOU/JS-BreakOut/main/ReflecBattle/';
+    game.load.crossOrigin = 'anonymous';
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
@@ -125,7 +126,7 @@
   function ballHitPaddle(ball, paddle) {
     ball.body.velocity.x = -1*5*(paddle.x-ball.x);
 
-    //refball = game.add.sprite(ball.x,ball.y,'ball2');
+    refball = game.add.sprite(ball.x,ball.y,'ball2');
 
 
   }
@@ -147,11 +148,6 @@
     else{timeText.setText("DRAW");}
   }
 
-  // this function (needed only on JSFiddle) take care of loading the images from the remote server
-  function handleRemoteImagesOnJSFiddle() {
-    game.load.baseURL = 'https://github.com/MTEIKOU/JS-BreakOut/tree/main/ReflecBattle/';
-    game.load.crossOrigin = 'anonymous';
-  }
 
 </script>
 </body>
