@@ -35,9 +35,9 @@
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
-    game.stage.backgroundColor = '#eee';
+    game.stage.backgroundColor = '#ddd';
     game.load.image('ball', 'img/ball.png');
-    game.load.image('ball2', 'img/ball2.png');
+    game.load.image('ball2', 'img/ball2.jpg');
     game.load.image('paddle', 'img/paddle.png');
   }
   function create() {
@@ -97,10 +97,10 @@
   }, 1000);
 
   function ballspawn(){
-
+  console.log(angle);
     //if(angle%180==0 || angle%180>150){angle+=30;}
     for(var i=0;i<2;i++){
-      console.log(angle%360);
+
       var x2 = 150 * Math.cos( angle * (Math.PI / 180) ) ;
       var y2 = 150 * Math.sin( angle * (Math.PI / 180) ) ;
 
