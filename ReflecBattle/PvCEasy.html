@@ -25,10 +25,8 @@
   var angle=90;
   var scoreText1;
   var scoreText2;
-  var newangle=[45,60,75,90,105,120,135];
-  var anglearr=[45,57.5,60,67.5,75,90];
-  var count=0;
-  var posxarr=[0.5];
+  var newangle=[90];
+  var posxarr=[0.25,0.5,0.75];
   var posx=0.5;
 
   var score1=0;
@@ -51,15 +49,6 @@
     game.load.spritesheet('button', 'img/button.png', 120, 40);
   }
   function create() {
-
-
-    //game.physics.startSystem(Phaser.Physics.ARCADE);
-    /*
-    ball = game.add.sprite(50, 50, 'ball');
-    ball.body.velocity.set(150, 150);
-    ball.body.collideWorldBounds = true;
-    ball.body.bounce.set(1);
-    */
 
     balls = game.add.group();
     paddles = game.add.group();
@@ -89,25 +78,6 @@
     var sinx = Math.sin(deg*(Math.PI/180));
     paddle2.x=game.world.width*0.5 + sinx*(game.world.width*0.5-paddle2.width*0.6);
     deg+=4;
-    /*
-    if(x%60<30){paddle2.x=paddle2.width*0.5+game.world.width*0.5/30*(x%60);}
-    if(x%60>=30){paddle2.x=game.world.width-paddle2.width*0.5-game.world.width/30*(x%60-30);}
-    x++;
-    console.log(x%60);
-    */
-    /*
-    if(game.input.pointer1.x==-1 && game.input.pointer1.y ==-1){
-      game.input.pointer1.x=game.world.width*0.5;
-    }
-    if(game.input.pointer2.x==-1 && game.input.pointer2.y ==-1){
-      game.input.pointer2.x=game.world.width*0.5;
-    }
-
-    if(game.input.pointer1.y>game.world.height*0.5){paddle1.x = game.input.pointer1.x}else if(game.input.pointer2.y>game.world.height*0.5){paddle1.x = game.input.pointer2.x}else{paddle1.x=game.world.width*0.5;}
-    if(game.input.pointer1.y<game.world.height*0.5){paddle2.x = game.input.pointer1.x}else if(game.input.pointer2.y<game.world.height*0.5){paddle2.x = game.input.pointer2.x}else{paddle2.x=game.world.width*0.5;}
-    */
-    //game.debug.pointer(game.input.pointer1);
-    //game.debug.pointer(game.input.pointer2);
     paddle1.x = game.input.x;
   }
 
@@ -141,24 +111,16 @@
       balls.add(newball);
       angle += 180;
     }
-    //angle = newangle[Math.floor( Math.random() * newangle.length )];
-    //posx = posxarr[Math.floor( Math.random() * posxarr.length )];
-    angle = anglearr[Math.floor( Math.random() * anglearr.length )];
-    if(count%2==1){angle+=45;console.log("count");}
-    count++;
+    angle = newangle[Math.floor( Math.random() * newangle.length )];
+    posx = posxarr[Math.floor( Math.random() * posxarr.length )];
+    console.log(posx);
     //angle = newangle[r];
   }
 
   function ballHitPaddle(ball, paddle) {
-
-    if(paddle==paddle1){
-      ball.loadTexture('ball2');
-      ball.body.velocity.x = -1*5*(paddle.x-ball.x);
-      }
-    if(paddle==paddle2){
-      ball.loadTexture('ball3');
-      ball.body.velocity.x = -1*5*(paddle.x-ball.x);
-    }
+    ball.body.velocity.x = -1*5*(paddle.x-ball.x);
+    if(paddle==paddle1){ball.loadTexture('ball2');}
+    if(paddle==paddle2){ball.loadTexture('ball3');}
 
   }
 
