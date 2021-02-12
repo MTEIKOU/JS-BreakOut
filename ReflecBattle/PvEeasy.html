@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ReflecBattle</title>
+  <style>* { padding: 0; margin: 0; }</style>
+  <script src="../phaser.min.js"></script>
+</head>
+<body>
+  <script>
+  var game = new Phaser.Game(300, 600, Phaser.AUTO, null, {preload: preload, create: create, update: update});
+
+  var newball;
+  var balls;
+  var paddle1;
+  var paddle2;
+  var paddles;
+  var refball;
+
+  var deg=0;
+  var x=0;
+
+  var speed = 1;
+
+  var angle=90;
+  var scoreText1;
+  var scoreText2;
+  var newangle=[90];
+  var posxarr=[0.25,0.5,0.75];
+  var posx=0.5;
+
+  var score1=0;
+  var score2=0;
+
+  var playing = true;
+  var time=45;
+
+  function preload() {
+    game.load.baseURL = 'https://raw.githubusercontent.com/MTEIKOU/JS-BreakOut/main/ReflecBattle/';
+    game.load.crossOrigin = 'anonymous';
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.stage.backgroundColor = '#ddd';
+    game.load.image('ball', 'img/ball.png');
+    game.load.image('ball2', 'img/ball2.png');
+    game.load.image('ball3', 'img/ball3.png');
+    game.load.image('paddle', 'img/paddle.png');
+    game.load.spritesheet('button', 'img/button.png', 120, 40);
+  }
+  function create() {
+
+    balls = game.add.group();
+    paddles = game.add.group();
+
+    paddle1 = game.add.sprite(game.world.width*0.5, game.world.height-5, 'paddle');
+    paddle1.anchor.set(0.5,1);
+    game.physics.enable(paddle1, Phaser.Physics.ARCADE);
+    paddle1.body.immovable = true;
+    paddles.add(paddle1);
+
+    paddle2 = game.add.sprite(game.world.width*0.5, 5, 'paddle');
+    paddle2.scale.x=1;
+    paddle2.anchor.set(0.5,0);
+    game.physics.enable(paddle2, Phaser.Physics.ARCADE);
+    paddle2.body.immovable = true;
+    paddles.add(paddle2);
+
+    textStyle = { font: '22px Arial', fill: '#0095DD' };
+    scoreText = game.add.text(game.world.width*0.5, game.world.height*0.5, '1P:0 2P:0', textStyle);
+    scoreText.anchor.set(0.5,0.5);
+    timeText = game.add.text(game.world.width*0.5, game.world.height*0.5-20, 'Time:'+time, textStyle);
+    timeText.anchor.set(0.5,0.5);
+  }
+  function update() {
+    game.physics.arcade.collide(balls, paddles, ballHitPaddle);
+
+    var sinx = Math.sin(deg*(Math.PI/180));
+    paddle2.x=game.world.width*0.5 + sinx*(game.world.width*0.5-paddle2.width*0.6);
+    deg+=1;
+    paddle1.x = game.input.x;
+  }
+
+
+  setInterval(function () {
+    if(time>0){time--};
+    if(time==0 && playing==true){playing=false;finish();}
+    if(playing){ballspawn();timeText.setText("Time:"+time);}
+  }, 1000);
+
+  function ballspawn(){
+  console.log(angle);
+    //if(angle%180==0 || angle%180>150){angle+=30;}
+
+    for(var i=0;i<2;i++){
+
+      var x2 = 150 * Math.cos( angle * (Math.PI / 180) ) ;
+      var y2 = 150 * Math.sin( angle * (Math.PI / 180) ) ;
+
+      newball = game.add.sprite(game.world.width*posx, game.world.height*0.5, 'ball');
+      newball.anchor.set(0.5,0.5);
+      game.physics.arcade.checkCollision.down = false;
+      game.physics.arcade.checkCollision.up = false;
+      game.physics.enable(newball, Phaser.Physics.ARCADE);
+
+      newball.body.velocity.set(x2, y2);
+      newball.body.collideWorldBounds = true;
+      newball.body.bounce.set(1);
+      newball.checkWorldBounds = true;
+      newball.events.onOutOfBounds.add(ballLeaveScreen, this);
+      balls.add(newball);
+      angle += 180;
+    }
+    angle = newangle[Math.floor( Math.random() * newangle.length )];
+    posx = posxarr[Math.floor( Math.random() * posxarr.length )];
+    console.log(posx);
+    //angle = newangle[r];
+  }
+
+  function ballHitPaddle(ball, paddle) {
+    ball.body.velocity.x = -1*5*(paddle.x-ball.x);
+    if(paddle==paddle1){ball.loadTexture('ball2');}
+    if(paddle==paddle2){ball.loadTexture('ball3');}
+
+  }
+
+  function ballLeaveScreen(ball) {
+    ball.kill();
+
+    if(playing){
+      if(ball.y<0){score2++;}
+      if(ball.y>game.world.height){score1++;}
+      scoreText.setText("1P:" + score1 + " 2P:" + score2);
+    }
+  }
+
+  function finish(){
+    balls.kill();
+    if(score1<score2){timeText.setText("1P WIN!");}
+    else if(score1>score2){timeText.setText("2P WIN!");}
+    else{timeText.setText("DRAW");}
+
+    restartButton = game.add.button(game.world.width*0.5, game.world.height*0.5+30, 'button', reload, this, 1, 0, 2);
+    restartButton.anchor.set(0.5);
+  }
+
+  function reload(){
+    location.reload();
+  }
+
+
+</script>
+</body>
+</html>
