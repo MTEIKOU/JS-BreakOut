@@ -2,10 +2,9 @@
 
 <Tutorial>
 https://yoppyy.github.io/JS-BreakOut/JS/index.html
-
 https://yoppyy.github.io/JS-BreakOut/Phaser/index.html
 
 <Arrange>
 https://yoppyy.github.io/JS-BreakOut/ReflecBattle/index.html
-https://yoppyy.github.io/JS-BreakOut/ReflecBattle/PvEeasy.html
-https://yoppyy.github.io/JS-BreakOut/ReflecBattle/PvEhard.html
+https://yoppyy.github.io/JS-BreakOut/ReflecBattle/PvE_Easy.html
+https://yoppyy.github.io/JS-BreakOut/ReflecBattle/PvE_Hard.html
